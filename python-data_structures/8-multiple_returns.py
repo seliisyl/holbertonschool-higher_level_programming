@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-
 def multiple_returns(phrase):
     if not phrase:
         return (0, None)
