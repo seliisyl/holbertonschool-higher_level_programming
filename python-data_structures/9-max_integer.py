@@ -1,5 +1,4 @@
-#!/usr/bin/python3
-
+#!/usr/bin/python
 def max_integer(my_list=None):
     if not my_list:
         return None
@@ -11,4 +10,3 @@ def max_integer(my_list=None):
             max_num = num
 
     return max_num
-
