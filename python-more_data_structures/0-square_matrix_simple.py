@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-
+# -*- coding: utf-8 -*-
 def square_matrix_simple(matrix=[]):
     # check matrice is empty
     if not matrix:
