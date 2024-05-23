@@ -1,38 +1,55 @@
 #!/usr/bin/python3
 
+"""
+
+This module is composed by a class that defines a Rectangle
+
+
+"""
+
+
 class Rectangle:
-    """Class that defines a rectangle by its width and height."""
+    """ Class that defines a rectangle """
 
     def __init__(self, width=0, height=0):
-        """Initialize the rectangle with optional width and height.
+        """ Method that initializes the instance
 
         Args:
-            width (int): The width of the rectangle (default is 0).
-            height (int): The height of the rectangle (default is 0).
+            width: rectangle width
+            height: rectangle height
+
+
         """
+
         self.width = width
         self.height = height
 
     @property
     def width(self):
-        """Get the width of the rectangle.
+        """ method that returns the value of the width
 
         Returns:
-            int: The width of the rectangle.
+            rectangle width
+
+
         """
+
         return self.__width
 
     @width.setter
     def width(self, value):
-        """Set the width of the rectangle.
+        """ method that defines the width
 
         Args:
-            value (int): The new width of the rectangle.
+            value: width
 
         Raises:
-            TypeError: If width is not an integer.
-            ValueError: If width is less than 0.
+            TypeError: if width is not an integer
+            ValueError: if width is less than zero
+
+
         """
+
         if not isinstance(value, int):
             raise TypeError("width must be an integer")
         if value < 0:
@@ -41,24 +58,30 @@ class Rectangle:
 
     @property
     def height(self):
-        """Get the height of the rectangle.
+        """ method that returns the value of the height
 
         Returns:
-            int: The height of the rectangle.
+            rectangle height
+
+
         """
+
         return self.__height
 
     @height.setter
     def height(self, value):
-        """Set the height of the rectangle.
+        """ method that defines the height
 
         Args:
-            value (int): The new height of the rectangle.
+            value: height
 
         Raises:
-            TypeError: If height is not an integer.
-            ValueError: If height is less than 0.
+            TypeError: if height is not an integer
+            ValueError: if height is less than zero
+
+
         """
+
         if not isinstance(value, int):
             raise TypeError("height must be an integer")
         if value < 0:
@@ -66,31 +89,44 @@ class Rectangle:
         self.__height = value
 
     def area(self):
-        """Calculate the area of the rectangle.
+        """ Method that calculates the Rectangle area
 
         Returns:
-            int: The area of the rectangle.
+            rectangle area
+
+
         """
-        return self.__width * self.__height
+
+        return self.width * self.height
 
     def perimeter(self):
-        """Calculate the perimeter of the rectangle.
+        """ Method that calculates the Rectangle perimeter
 
         Returns:
-            int: The perimeter, or 0 if width or height is 0.
+            rectangle perimeter
+
+
         """
-        if self.__width == 0 or self.__height == 0:
+
+        if self.width == 0 or self.height == 0:
             return 0
-        return 2 * (self.__width + self.__height)
+
+        return (2 * self.width) + (2 * self.height)
 
     def __str__(self):
-        """
-        Return a string representation of the rectangle with '#'.
+        """ Method that returns the Rectangle #
 
         Returns:
-            str: Rectangle as a string, or empty if width or height is 0.
+            str of the rectangle
+
         """
-        if self.__width == 0 or self.__height == 0:
-            return ""
-        rect_lines = ["#" * self.__width for _ in range(self.__height)]
-        return "\n".join(rect_lines)
+
+        rectangle = ""
+
+        if self.width == 0 or self.height == 0:
+            return rectangle
+
+        for i in range(self.height):
+            rectangle += ("#" * self.width) + "\n"
+
+        return rectangle[:-1]
