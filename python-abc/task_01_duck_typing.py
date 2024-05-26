@@ -39,10 +39,10 @@ class Rectangle(Shape):
         return self.width * self.height
 
     def perimeter(self):
-        return 2 * (self.width + self.height)
+        return (self.width + self.height) * 2
 
 
 # Define the shape_info function that uses duck typing
 def shape_info(shape):
-    print(f"Area: {shape.area()}")
-    print(f"Perimeter: {shape.perimeter()}")
+    print("Area:", shape.area())
+    print("Perimeter:", shape.perimeter())
