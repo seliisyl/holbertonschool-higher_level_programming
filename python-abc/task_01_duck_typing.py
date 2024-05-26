@@ -15,34 +15,31 @@ class Shape(ABC):
         pass
 
 
-# Define the Circle class that inherits from Shape
 class Circle(Shape):
 
     def __init__(self, radius):
-        self.radius = radius
+        self.__radius = radius
 
     def area(self):
-        return pi * self.radius ** 2
+        return pi * self.__radius ** 2
 
     def perimeter(self):
-        return 2 * pi * self.radius
+        return 2 * pi * abs(self.__radius)
 
 
-# Define the Rectangle class that inherits from Shape
 class Rectangle(Shape):
 
     def __init__(self, width, height):
-        self.width = width
-        self.height = height
+        self.__width = width
+        self.__height = height
 
     def area(self):
-        return self.width * self.height
+        return self.__width * self.__height
 
     def perimeter(self):
-        return (self.width + self.height) * 2
+        return (self.__width + self.__height) * 2
 
 
-# Define the shape_info function that uses duck typing
 def shape_info(shape):
     print("Area:", shape.area())
     print("Perimeter:", shape.perimeter())
