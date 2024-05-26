@@ -1,42 +1,12 @@
 #!/usr/bin/python3
 """
-   function filr for BaseGeometry
+   class file for rectangle
 """
-
-
-class BaseGeometry:
-    """
-    A class named BaseGeometry with a method that raises an exception.
-    """
-
-    def area(self):
-        """
-        Raises an Exception with the message 'area() is not implemented'.
-        """
-        raise Exception("area() is not implemented")
-
-    def integer_validator(self, name, value):
-        """
-        Validates that the value is an integer greater than 0.
-
-        Parameters:
-        name (str): The name associated with the value
-        (assumed to be a string).
-        value (any): The value to be validated.
-
-        Raises:
-        TypeError: If value is not an integer with the message
-        '<name> must be an integer'.
-        ValueError: If value is less than or equal to 0 with the message
-        '<name> must be greater than 0'.
-        """
-        if not isinstance(value, int):
-            raise TypeError(f"{name} must be an integer")
-        if value <= 0:
-            raise ValueError(f"{name} must be greater than 0")
+BaseGeometry = __import__('7-base_geometry').BaseGeometry
 
 
 class Rectangle(BaseGeometry):
+    """ Rectangle class inherits from BaseGeomtry. """
     def __init__(self, width, height):
         """Initialize a new Rectangle.
 
