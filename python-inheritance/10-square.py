@@ -19,7 +19,3 @@ class Square(Rectangle):
     def area(self):
         """Retourne l'aire du carré."""
         return self.__size * self.__size
-
-    def __str__(self):
-        """Retourne la représentation en chaîne de caractères du carré."""
-        return f"[Square] {self.__size}/{self.__size}"
