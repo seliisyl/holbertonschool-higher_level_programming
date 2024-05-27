@@ -11,6 +11,6 @@ def read_file(filename=""):
     Parameters:
     filename (str): path to the file to be read. Defaults to an empty string.
     """
-    with open(filename, "r", encoding="utf-8") as file:
-        content = file.read()
-        print(content)
+    with open(filename, encoding="utf-8") as file:
+        for line in file:
+            print(line, end="")
