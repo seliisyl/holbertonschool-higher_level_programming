@@ -3,12 +3,10 @@
    function file for serialization convert_csv_to_json
 """
 
-import json
 import pickle
 
 
 class CustomObject:
-
     def __init__(self, name, age, is_student):
         """
         Initialize a new instance of CustomObject.
@@ -35,8 +33,11 @@ class CustomObject:
 
         :param filename: Name of the file where the object will be saved
         """
-        with open(filename, 'wb') as f:
-            pickle.dump(self, f)
+        try:
+            with open(filename, "wb") as f:
+                pickle.dump(self, f)
+        except Exception:
+            return
 
     @classmethod
     def deserialize(cls, filename):
@@ -46,6 +47,8 @@ class CustomObject:
         :param filename: Name of the file from which the object will be loaded
         :return: An instance of CustomObject if successful, otherwise None
         """
-        with open(filename, 'rb') as file:
-            instance = pickle.load(file)
-        return instance
+        try:
+            with open(filename, "rb") as f:
+                return pickle.load(f)
+        except Exception as e:
+            return None
