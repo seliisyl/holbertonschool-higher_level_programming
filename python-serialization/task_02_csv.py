@@ -1,13 +1,9 @@
-#!/usr/bin/env python3
-"""
-   function file for convert_csv_to_json
-"""
-
-import csv
+#!/usr/bin/python3
 import json
+import csv
 
 
-def convert_csv_to_json(csv_filename):
+def convert_csv_to_json(filename):
     try:
         data = []
         with open(filename, "r") as fc:
