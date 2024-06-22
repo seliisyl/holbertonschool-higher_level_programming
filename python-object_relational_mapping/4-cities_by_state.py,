@@ -1,0 +1,47 @@
+#!/usr/bin/python3
+"""
+Script that lists all cities from the database hbtn_0e_4_usa.
+"""
+import sys
+import MySQLdb
+
+
+def list_cities(username, password, database):
+    try:
+        # Connect to the database
+        db = MySQLdb.connect(
+            host="localhost", port=3306, user=username,
+            passwd=password, db=database
+        )
+        cursor = db.cursor()
+
+        # Create the query to get all cities
+        query = """
+        SELECT cities.id, cities.name, states.name 
+        FROM cities JOIN states ON cities.state_id = states.id 
+        ORDER BY cities.id ASC
+        """
+        cursor.execute(query)
+
+        # Fetch all the results
+        cities = cursor.fetchall()
+
+        # Display the results
+        for city in cities:
+            print(city)
+
+    except MySQLdb.Error as e:
+        print(f"Error connecting to MySQL: {e}")
+
+    finally:
+        # Close the cursor and the connection
+        cursor.close()
+        db.close()
+
+
+if __name__ == "__main__":
+    if len(sys.argv) == 4:
+        username, password, database = sys.argv[1], sys.argv[2], sys.argv[3]
+        list_cities(username, password, database)
+    else:
+        print("Usage: python3 4-cities_by_state.py <username> <password> <database>")
