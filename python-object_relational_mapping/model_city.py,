@@ -1,0 +1,35 @@
+#!/usr/bin/python3
+"""
+Contains the class definition of a State and an instance Base = declarative_base().
+"""
+
+from sqlalchemy import Column, Integer, String, create_engine
+from sqlalchemy.ext.declarative import declarative_base
+
+Base = declarative_base()
+
+class State(Base):
+    """
+    State class that links to the MySQL table states.
+    """
+    __tablename__ = 'states'
+
+    id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
+    name = Column(String(128), nullable=False)
+
+# Example usage (assuming your MySQL server is running on localhost at port 3306):
+if __name__ == "__main__":
+    import sys
+    from sqlalchemy.orm import sessionmaker
+
+    if len(sys.argv) != 4:
+        print("Usage: python3 model_state.py <username> <password> <database>")
+        sys.exit(1)
+
+    username, password, database = sys.argv[1], sys.argv[2], sys.argv[3]
+
+    # Create an engine and connect to the MySQL server
+    engine = create_engine(f'mysql+mysqldb://{username}:{password}@localhost:3306/{database}')
+
+    # Create all tables in the engine
+    Base.metadata.create_all(engine)
