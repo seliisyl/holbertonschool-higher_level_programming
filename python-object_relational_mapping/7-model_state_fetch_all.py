@@ -22,7 +22,10 @@ if __name__ == "__main__":
     db = argv[3]
 
     # Create engine for connecting to the database
-    engine = create_engine(f'mysql+mysqldb://{user}:{passwd}@localhost/{db}', pool_pre_ping=True)
+    engine = create_engine(
+        f'mysql+mysqldb://{user}:{passwd}@localhost/{db}',
+        pool_pre_ping=True
+    )
     Session = sessionmaker(bind=engine)
     session = Session()
 
