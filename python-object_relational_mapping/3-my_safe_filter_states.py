@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 """
-list all states starting with 'N'
-parameters given to script: username, password, database
+return matching states; safe from MySQL injections
+# http://bobby-tables.com/python
+parameters given to script: username, password, database, state to match
 """
-
 
 import MySQLdb
 from sys import argv
@@ -17,11 +17,14 @@ if __name__ == "__main__":
                          passwd=argv[2],
                          db=argv[3])
 
-    # create cursor to exec queries using SQL; filter names starting with 'N'
+    # create cursor to exec queries using SQL; match arg given
     cursor = db.cursor()
-    cursor.execute("SELECT * FROM states WHERE name LIKE 'N%' ORDER BY id ASC")
+    sql_cmd = """SELECT *
+                 FROM states
+                 WHERE name=%s ORDER BY id ASC"""
+    cursor.execute(sql_cmd, (argv[4],))
+
     for row in cursor.fetchall():
-        if row[1][0] == 'N':
-            print(row)
+        print(row)
     cursor.close()
     db.close()

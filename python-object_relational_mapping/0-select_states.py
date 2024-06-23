@@ -1,33 +1,25 @@
 #!/usr/bin/python3
 """
-script that lists all states from the database hbtn_0e_0_usa
+lists all table values
+parameters given to script: username, password, database
 """
-import sys
+
 import MySQLdb
-
-
-def list_states(username, password, database):
-    # Connect to the database
-    db = MySQLdb.connect(host="localhost", port=3306, user=username,
-                         passwd=password, db=database)
-    cursor = db.cursor()
-
-    # Execute the query to get all states
-    cursor.execute("SELECT id, name FROM states ORDER BY id ASC")
-
-    # Fetch all the results
-    states = cursor.fetchall()
-
-    # Display the results
-    for state in states:
-        print(state)
-
-    # Close the cursor and the connection
-    cursor.close()
-    db.close()
-
+from sys import argv
 
 if __name__ == "__main__":
-    if len(sys.argv) == 4:
-        username, password, database = sys.argv[1], sys.argv[2], sys.argv[3]
-        list_states(username, password, database)
+
+    # connect to database
+    db = MySQLdb.connect(host="localhost",
+                         port=3306,
+                         user=argv[1],
+                         passwd=argv[2],
+                         db=argv[3])
+
+    # create cursor to exec queries using SQL
+    cursor = db.cursor()
+    cursor.execute("SELECT * FROM states ORDER BY id ASC")
+    for row in cursor.fetchall():
+        print(row)
+    cursor.close()
+    db.close()

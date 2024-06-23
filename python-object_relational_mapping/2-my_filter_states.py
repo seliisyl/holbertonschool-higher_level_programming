@@ -1,46 +1,40 @@
 #!/usr/bin/python3
 """
-Script that filters states by user input from the database hbtn_0e_0_usa
+Return matching states
+parameters given to script: username, password, database, state to match
 """
-import sys
+
 import MySQLdb
-
-
-def filter_states_by_name(username, password, database, state_name):
-    try:
-        # Connect to the database
-        db = MySQLdb.connect(
-            host="localhost", port=3306, user=username,
-            passwd=password, db=database
-        )
-        cursor = db.cursor()
-
-        # Execute the query to filter states by name
-        query = ("SELECT id, name FROM states WHERE name = %s "
-                 "ORDER BY id ASC")
-        cursor.execute(query, (state_name,))
-
-        # Fetch all the results
-        states = cursor.fetchall()
-
-        # Display the results
-        for state in states:
-            print(state)
-
-    except MySQLdb.Error as e:
-        print(f"Error connecting to MySQL: {e}")
-
-    finally:
-        # Close the cursor and the connection
-        cursor.close()
-        db.close()
-
+from sys import argv
 
 if __name__ == "__main__":
-    if len(sys.argv) == 5:
-        username, password, database = sys.argv[1], sys.argv[2], sys.argv[3]
-        state_name = sys.argv[4]
-        filter_states_by_name(username, password, database, state_name)
-    else:
-        print("Usage: python3 2-my_filter_states.py <username> <password> "
-              "<database> <state name>")
+
+    # Ensure correct number of command-line arguments
+    if len(argv) != 5:
+        print("Usage: {} <username> <password> <database> <state name>"
+              .format(argv[0]))
+        exit(1)
+
+    # Connect to the database
+    db = MySQLdb.connect(host="localhost",
+                         port=3306,
+                         user=argv[1],
+                         passwd=argv[2],
+                         db=argv[3])
+
+    # Create cursor to execute queries using SQL
+    cursor = db.cursor()
+    try:
+        # Use parameterized query to avoid SQL injection
+        sql_cmd = "SELECT * FROM states WHERE name = %s ORDER BY id ASC"
+        cursor.execute(sql_cmd, (argv[4],))
+
+        # Fetch and print matching rows
+        for row in cursor.fetchall():
+            print(row)
+    except Exception as e:
+        print(f"Error: {e}")
+    finally:
+        # Close cursor and database connection
+        cursor.close()
+        db.close()
