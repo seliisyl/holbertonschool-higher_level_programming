@@ -10,13 +10,17 @@ import MySQLdb
 def list_states_starting_with_N(username, password, database):
     try:
         # Connect to the database
-        db = MySQLdb.connect(host="localhost", port=3306, user=username,
-                             passwd=password, db=database)
+        db = MySQLdb.connect(
+            host="localhost", port=3306, user=username,
+            passwd=password, db=database
+        )
         cursor = db.cursor()
 
         # Execute the query to get all states with a name starting with 'N'
-        query = ("SELECT id, name FROM states WHERE name LIKE 'N%' "
-                 "ORDER BY id ASC")
+        query = (
+            "SELECT id, name FROM states WHERE name LIKE 'N%' "
+            "ORDER BY id ASC"
+        )
         cursor.execute(query)
 
         # Fetch all the results
