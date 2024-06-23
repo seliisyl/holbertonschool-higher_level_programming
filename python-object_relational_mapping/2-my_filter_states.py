@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """
-Script that takes in an argument and displays all values in the states table
-of hbtn_0e_0_usa where name matches the argument.
+Script that filters states by user input from the database hbtn_0e_0_usa
 """
 import sys
 import MySQLdb
@@ -16,10 +15,10 @@ def filter_states_by_name(username, password, database, state_name):
         )
         cursor = db.cursor()
 
-        # Create the query to get all states with a name matching the argument
-        query = ("SELECT id, name FROM states WHERE name = '{}' "
-                 "ORDER BY id ASC".format(state_name))
-        cursor.execute(query)
+        # Execute the query to filter states by name
+        query = ("SELECT id, name FROM states WHERE name = %s "
+                 "ORDER BY id ASC")
+        cursor.execute(query, (state_name,))
 
         # Fetch all the results
         states = cursor.fetchall()
@@ -39,7 +38,9 @@ def filter_states_by_name(username, password, database, state_name):
 
 if __name__ == "__main__":
     if len(sys.argv) == 5:
-        username, password, database, state_name = sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4]
+        username, password, database = sys.argv[1], sys.argv[2], sys.argv[3]
+        state_name = sys.argv[4]
         filter_states_by_name(username, password, database, state_name)
     else:
-        print("Usage: python3 2-my_filter_states.py <username> <password> <database> <state name>")
+        print("Usage: python3 2-my_filter_states.py <username> <password> "
+              "<database> <state name>")
